@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="🔏 Password management"><meta name="keywords" content="rust, rustlang, rust-lang, password"><title>krypto::password - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-93196c7a1c3542a8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-4743e13df3dfe8c4.css"><link rel="stylesheet" disabled href="../../static.files/dark-0e1b889528bd466b.css"><link rel="stylesheet" disabled href="../../static.files/ayu-65289d5d067c7c66.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="icon" href="https://kwatafana.org/logo.jpeg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../krypto/index.html"><img src="https://kwatafana.org/logo.jpeg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../krypto/index.html">
+                <img src="https://kwatafana.org/logo.jpeg" alt="logo"></a><h2 class="location"><a href="#">Module password</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#functions">Functions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">krypto</a>::<wbr><a class="mod" href="#">password</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/krypto/password.rs.html#1-114">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="-password-management"><a href="#-password-management">🔏 Password management</a></h2><h3 id="password-hashing"><a href="#password-hashing">Password Hashing</a></h3><h5 id="why-hash"><a href="#why-hash">Why hash?</a></h5>
+<p>Web servers can get hacked, and when that happens you don’t want the
+passwords of the users to be leaked – this will allow the attacker
+to gain access to the users resources. Some users also use the same
+password across many services, your web-server can be the root of a
+chain of breaches.</p>
+<p>A cool way to prevent this type of leak is by <strong>obfuscating</strong> the
+users passwords with a <a href="https://en.wikipedia.org/wiki/Hash_function"><strong>hash function</strong></a>,
+before storing them in the database.</p>
+<p>There are lots of hash functions that can be used, but most of these
+are a bad choice. For example if you choose SHA-256 or other
+computationally cheap functions (hash function without a <strong>work factor</strong>
+parameter), they will be vulnerable to rainbow table attacks.
+Bruteforce is also easy if the password length is short/known,
+asic miners can be used for bruteforce search, they can generate 100
+TeraHashes PER Second.</p>
+<h5 id="password-hash-functions"><a href="#password-hash-functions">Password Hash Functions</a></h5>
+<p>The best method to use against plaintext password leaks and rainbow
+table attacks is to use a <strong>Password Hash Function</strong>. Which is a hash
+function specially designed to be slow/expensive to compute/bruteforce
+even on specialized hardware.</p>
+<h5 id="scrypt-hash-function"><a href="#scrypt-hash-function">Scrypt Hash Function</a></h5>
+<p>The <a href="https://www.tarsnap.com/scrypt.html">scrypt</a> hash function uses large amounts of memory when hashing,
+making it expensive to scale bruteforce attacks. <code>scrypt</code> is also
+secure against hardware brute-force attacks.</p>
+<p>In <code>kong</code> we use <a href="https://github.com/RustCrypto/password-hashes/tree/master/scrypt"><code>scrypt</code></a>
+to hash users passwords before they are stored in the database (<code>kollection</code>).</p>
+<blockquote>
+<p>A number of cryptocurrencies use <strong>scrypt</strong> for proof of work.</p>
+</blockquote>
+<blockquote>
+<p><code>scrypt</code> is created by Colin Percival of <a href="https://en.wikipedia.org/wiki/Tarsnap">Tarsnap</a></p>
+</blockquote>
+<h5 id="conclusion"><a href="#conclusion">Conclusion</a></h5>
+<p>A cool way to prevent password leaks is by <strong>obfuscating</strong> them
+with a password hash function which offer additional security
+against bruteforce from specialized hardware such as asics. If
+password hash functions are used and implemented correctly even the
+administrators of the server will not be able to read the users
+passwords especially if the server is open source and the users can
+audit the code for themselves.</p>
+<h5 id="references"><a href="#references">References</a></h5>
+<ul>
+<li><a href="https://www.troyhunt.com/our-password-hashing-has-no-clothes/">https://www.troyhunt.com/our-password-hashing-has-no-clothes/</a></li>
+<li><a href="https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016">https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016</a></li>
+<li><a href="https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/">https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/</a></li>
+</ul>
+</div></details><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.hash.html" title="krypto::password::hash fn">hash</a></div><div class="item-right docblock-short">Hash a cleartext password using the scrypt hash function</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.verify.html" title="krypto::password::verify fn">verify</a></div><div class="item-right docblock-short">Check if a scrypt hash matches the password cleartext</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="krypto" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0 (2c8cc3432 2023-03-06)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Content","The content of a `kpassport`"],["Kpassport","The `kpassport` authorization token"]]};

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Jackson G. Kaindume cy6erlion@protonmail.com" />
+  <title>🌐 Kong HTTP API</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">🌐 Kong HTTP API</h1>
+<p class="author">Jackson G. Kaindume <a
+href="mailto:cy6erlion@protonmail.com"
+class="email">cy6erlion@protonmail.com</a></p>
+<p class="date">Last update 28.02.2023</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#section" id="toc-section">🌐</a>
+<ul class="incremental">
+<li><a href="#ℹ-node-information" id="toc-ℹ-node-information">ℹ️
+<code>/node-information</code></a>
+<ul class="incremental">
+<li><a href="#head-node-information" id="toc-head-node-information">HEAD
+<code>/node-information</code></a></li>
+<li><a href="#get-node-information" id="toc-get-node-information">GET
+<code>/node-information</code></a></li>
+</ul></li>
+<li><a href="#accounts" id="toc-accounts">👤 <code>/accounts</code></a>
+<ul class="incremental">
+<li><a href="#post-accounts" id="toc-post-accounts">POST
+<code>/accounts</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<hr />
+<h1 id="section">🌐</h1>
+<p>Documentation of the <code>kong</code> HTTP APIs.</p>
+<hr />
+<h2 id="ℹ-node-information">ℹ️ <code>/node-information</code></h2>
+<p>Gets information about the running node.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Overview</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resource: <strong><code>/node-information</code></strong></td>
+</tr>
+<tr class="even">
+<td>Architype: <strong><code>Document</code></strong></td>
+</tr>
+<tr class="odd">
+<td>Cargo feature: <strong><code>node_information</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<h3 id="head-node-information">HEAD <code>/node-information</code></h3>
+<h3 id="get-node-information">GET <code>/node-information</code></h3>
+<ul class="incremental">
+<li><strong>Success Response Codes</strong>:
+<ul class="incremental">
+<li>{<strong>OK 200</strong>, <a href=""><code>NodeInfo</code></a>}</li>
+</ul></li>
+<li><strong>Error Response Codes</strong>:
+<ul class="incremental">
+<li>{<strong>500</strong>, <code>TODO</code>}</li>
+</ul></li>
+</ul>
+<h4 id="http-headers-media-types">HTTP HEADERS &amp; Media Types</h4>
+<p>// TODO ___</p>
+<h2 id="accounts">👤 <code>/accounts</code></h2>
+<p>Management of user accounts.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Overview</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resource: <strong><code>/accounts</code></strong></td>
+</tr>
+<tr class="even">
+<td>Architype: <strong><code>Collection</code></strong></td>
+</tr>
+<tr class="odd">
+<td>Cargo feature: <code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<h3 id="post-accounts">POST <code>/accounts</code></h3>
+<p>Creates a new account object.</p>
+<ul class="incremental">
+<li>Input: <code>AccountCreationData</code></li>
+<li><strong>Success Response Codes</strong>:
+<ul class="incremental">
+<li>{<strong>OK 201</strong>, <code>TODO</code>}</li>
+</ul></li>
+<li><strong>Error Response Codes</strong>:
+<ul class="incremental">
+<li>{<strong>400</strong>, <code>TODO</code>}</li>
+<li>{<strong>500</strong>, <code>TODO</code>}</li>
+</ul></li>
+</ul>
+<h4 id="http-headers-media-types-1">HTTP HEADERS &amp; Media Types</h4>
+<p>// TODO</p>
+<hr />
+<p><a href="./index.html">[⬡]</a> | <a
+href="https://kwatafana.codeberg.page/">[⧉]</a></p>
+</body>
+</html>

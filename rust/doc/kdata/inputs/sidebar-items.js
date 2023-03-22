@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["AccountAuthInput","Account authentication input"],["AccountCreationInput","Data used as input to create a new account."]],"trait":[["UserInput","User input"]]};

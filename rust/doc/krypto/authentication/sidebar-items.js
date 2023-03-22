@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["Auth","Kong authentication and authorization management"]],"struct":[["AuthHeaders","HTTP authentication methods"]]};

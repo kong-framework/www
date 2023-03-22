@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="🔑 Authentication"><meta name="keywords" content="rust, rustlang, rust-lang, authentication"><title>krypto::authentication - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-93196c7a1c3542a8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-4743e13df3dfe8c4.css"><link rel="stylesheet" disabled href="../../static.files/dark-0e1b889528bd466b.css"><link rel="stylesheet" disabled href="../../static.files/ayu-65289d5d067c7c66.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="icon" href="https://kwatafana.org/logo.jpeg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../krypto/index.html"><img src="https://kwatafana.org/logo.jpeg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../krypto/index.html">
+                <img src="https://kwatafana.org/logo.jpeg" alt="logo"></a><h2 class="location"><a href="#">Module authentication</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">krypto</a>::<wbr><a class="mod" href="#">authentication</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/krypto/authentication.rs.html#1-261">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="-authentication"><a href="#-authentication">🔑 Authentication</a></h2>
+<ul>
+<li><input disabled="" type="checkbox"/>
+<strong>Username</strong> and <strong>password</strong> is used to authenticate users (humans).</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Usernames are <strong>alphanumeric</strong> (letters A-Z, numbers 0-9) with the exception of <strong>underscores</strong>.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Password should be at least 10 characters long</li>
+<li><input disabled="" type="checkbox" checked=""/>
+The user’s password is <strong>hashed</strong> with <code>scrypt</code> and the hash
+is stored in the database.</li>
+<li><input disabled="" type="checkbox"/>
+The username may be claimed by a suspended or deactivated
+account. Suspended and deactivated usernames are not immediately
+available for use.</li>
+<li><input disabled="" type="checkbox"/>
+After the user has been authenticated, they are handed a
+<strong>passport</strong> that should send with requests to private resources.</li>
+<li><input disabled="" type="checkbox"/>
+<code>kong</code> allows  a reserve list of usernames that
+can never be used by end-users (e.g <strong>admin</strong>)</li>
+</ul>
+<h5 id="attaching-to-http-requests"><a href="#attaching-to-http-requests">Attaching to HTTP requests</a></h5>
+<p>Clients that request to access protected routes, need to provide a
+valid <code>kpassport</code>, they do this by attaching a <code>kpassport</code> with every
+request to a protected route. There are two ways to attach a
+<code>kpassport</code> to a request:</p>
+<ol>
+<li>HTTP Cookie</li>
+</ol>
+<p>The cookies <strong>Secure</strong> attribute is set, this ensures that the
+cookie is only sent over an HTTPS connection and not HTTP. This means
+that the cookie (<code>kpassport</code>) cannot be accessed by “MITM” attackers.</p>
+<p>The cookies <strong>HttpOnly</strong> attribute is also set, this ensures that
+the cookie is inaccessible to the JavaScript <code>Document.cookie</code> API. So
+the cookie cannot be read or modified by client side JavaScript.</p>
+<p>Cookie expiration date is also set. It is calculated from
+the <code>kpassport</code>’s timestamp:</p>
+<blockquote>
+<p>TODO: how to calculate a cookies expiration date from a kpassport</p>
+</blockquote>
+<blockquote>
+<p>Set-Cookie: session=<kpassport>; Expires=Thu, 21 Oct 2021 07:28:00 GMT; Secure; HttpOnly</p>
+</blockquote>
+<ol start="2">
+<li>Authorization header:</li>
+</ol>
+<p>A <code>kpassport</code> can be transported using HTTP headers, the
+kpassport is sent in the Authorization header:</p>
+<div class="example-wrap"><pre class="language-text"><code>Authorization: Bearer &lt;the kpassport kpassport&gt;
+</code></pre></div><h5 id="expiration"><a href="#expiration">Expiration</a></h5>
+<p>A <code>kpassport</code> is timestamped at the time it is issued</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthHeaders.html" title="krypto::authentication::AuthHeaders struct">AuthHeaders</a></div><div class="item-right docblock-short">HTTP authentication methods</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Auth.html" title="krypto::authentication::Auth enum">Auth</a></div><div class="item-right docblock-short">Kong authentication and authorization management</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="krypto" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0 (2c8cc3432 2023-03-06)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

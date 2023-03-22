@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["authentication","🔑 Authentication"],["defaults",""],["kpassport","🪪 Kong Passport"],["password","🔏 Password management"]]};

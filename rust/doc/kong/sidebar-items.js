@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["KError",""]],"mod":[["kontrol","kontrol"],["kroute","kroute"],["outsource","Re-exports of upstream crates"]],"struct":[["Kollection","Database management system"],["Konfig","Server configuration"],["Kong","Kong object"]]};

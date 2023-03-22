@@ -1,0 +1,12 @@
+/home/kaindume/#/kwatafana/kong/website/rust/debug/deps/tempfile-2c63d5370f79040f.rmeta: /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/lib.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/dir.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/error.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/mod.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/mod.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/spooled.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/util.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/unix.rs
+
+/home/kaindume/#/kwatafana/kong/website/rust/debug/deps/tempfile-2c63d5370f79040f.d: /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/lib.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/dir.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/error.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/mod.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/mod.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/spooled.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/util.rs /home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/unix.rs
+
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/lib.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/dir.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/error.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/mod.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/mod.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/spooled.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/util.rs:
+/home/kaindume/.cargo/registry/src/github.com-1ecc6299db9ec823/tempfile-3.4.0/src/file/imp/unix.rs:

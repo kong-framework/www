@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["kdata","kerror","kogs","kollection","konfig","kong","krypto"];

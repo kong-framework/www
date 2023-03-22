@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["accounts",""],["auth",""]],"struct":[["KontrolError",""],["Kontroller","Request Kontroller"]],"trait":[["Kontrol","Trait for an HTTP endpoint /  request handler"]]};
