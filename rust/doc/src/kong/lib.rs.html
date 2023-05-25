@@ -56,6 +56,57 @@
 <a href="#55" id="55">55</a>
 <a href="#56" id="56">56</a>
 <a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
 </pre><pre class="rust"><code><span class="doccomment">//!```text
 //!                              )                 
 //!                           ( /(          (  (   
@@ -70,47 +121,98 @@
 #![doc(html_logo_url = <span class="string">&quot;https://kwatafana.org/logo.jpeg&quot;</span>)]
 #![warn(missing_docs, unreachable_pub, future_incompatible, rust_2018_idioms)]
 
-</span><span class="kw">pub use </span>kdata;
-<span class="kw">pub use </span>kerror::KError;
-<span class="kw">pub use </span>kollection::Kollection;
-<span class="kw">pub use </span>konfig::Konfig;
-<span class="kw">use </span>kontrol::{Kontrol, Kontroller};
-<span class="kw">pub mod </span>kontrol;
-<span class="kw">pub mod </span>kroute;
-<span class="kw">pub mod </span>outsource;
-<span class="kw">use </span>rouille::{Request, Response};
-<span class="kw">use </span>route_recognizer::Router;
+</span><span class="kw">mod </span>defaults;
+<span class="kw">mod </span>error;
+<span class="kw">mod </span>error_response;
+<span class="kw">pub mod </span>inputs;
+<span class="kw">mod </span>konfig;
+<span class="kw">mod </span>kontrol;
+<span class="kw">mod </span>kroute;
+<span class="kw">pub mod </span>log;
+<span class="kw">pub mod </span>validate;
 
-<span class="doccomment">/// Kong object
+<span class="kw">pub use </span>error::KError;
+<span class="kw">pub use </span>error_response::ErrorResponse;
+<span class="kw">pub use </span>konfig::Konfig;
+<span class="kw">pub use </span>kontrol::Kontrol;
+<span class="kw">pub use </span>kroute::{kroute, Method};
+<span class="kw">pub use </span>krypto;
+<span class="kw">pub use </span>rouille <span class="kw">as </span>server;
+<span class="kw">pub use </span>serde_json::{
+    error::Error <span class="kw">as </span>JsonError, from_str <span class="kw">as </span>json_from_str, json, Value <span class="kw">as </span>JsonValue,
+};
+
+<span class="kw">use </span>krypto::kpassport::Kpassport;
+<span class="kw">use </span>std::fs::File;
+
+<span class="doccomment">/// 🔥 Kong object
 </span><span class="kw">pub struct </span>Kong {
-    <span class="doccomment">/// Kong database
-    </span><span class="kw">pub </span>database: Kollection,
     <span class="doccomment">/// Kong configuration
     </span><span class="kw">pub </span>config: Konfig,
-    <span class="doccomment">/// Kong router
-    </span><span class="kw">pub </span>router: Router&lt;<span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt; <span class="kw">fn</span>(<span class="kw-2">&amp;mut </span>Kong, <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>Request) -&gt; Response&gt;,
+    <span class="doccomment">/// Request authentication + authorization token
+    </span><span class="kw">pub </span>kpassport: <span class="prelude-ty">Option</span>&lt;Kpassport&gt;,
+    <span class="doccomment">/// Validated user input
+    </span><span class="kw">pub </span>input: <span class="prelude-ty">Option</span>&lt;serde_json::Value&gt;,
 }
 
 <span class="kw">impl </span>Kong {
-    <span class="doccomment">/// Create new kong instance
-    </span><span class="kw">pub fn </span>new&lt;<span class="lifetime">&#39;a</span>&gt;(kontrollers: Vec&lt;Kontroller&lt;<span class="lifetime">&#39;a</span>&gt;&gt;) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>config = Konfig::read().unwrap();
-        <span class="kw">let </span>database = Kollection::new(<span class="kw-2">&amp;</span>config.admin_accounts_database);
-        <span class="kw">let </span><span class="kw-2">mut </span>router = Router::new();
+    <span class="doccomment">/// Initialize kong, by creating the working directory if it does
+    /// not exist and it content if it does not exist (for example the
+    /// LOG file)
+    </span><span class="kw">fn </span>init(config: <span class="kw-2">&amp;</span>Konfig) {
+        Kong::create_working_directory();
+        Kong::create_log_file(config);
+    }
 
-        <span class="kw">for </span>kontroller <span class="kw">in </span><span class="kw-2">&amp;</span>kontrollers {
-            router.add(kontroller.address, kontroller.handle);
-        }
+    <span class="doccomment">/// Create working dirctory if it does not already exist
+    </span><span class="kw">fn </span>create_working_directory() {
+        <span class="comment">// Get path to working directory
+        </span><span class="kw">let </span>working_dir = Konfig::read_working_dir();
+        <span class="kw">let </span>working_dir = std::path::Path::new(<span class="kw-2">&amp;</span>working_dir);
 
-        Kong {
-            database,
-            config,
-            router,
+        <span class="kw">if </span>!std::path::Path::exists(working_dir) {
+            <span class="comment">// create working directory
+            // XXX: Note that using unwrap() here is safe, because
+            // this function is a called a start up during the
+            // initialization phase of kong.
+            </span>std::fs::create_dir(working_dir).unwrap()
         }
     }
-    <span class="doccomment">/// Start up runtime
-    </span><span class="kw">pub fn </span>start(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), kerror::KError&gt; {
-        <span class="self">self</span>.database.connect()
+
+    <span class="doccomment">/// Create log file if file logging is enabled and the LOG
+    /// file does not yet exist.
+    </span><span class="kw">fn </span>create_log_file(config: <span class="kw-2">&amp;</span>Konfig) {
+        <span class="comment">//let logging = config.log_file
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(file_logging) = config.log_file {
+            <span class="kw">if </span>file_logging {
+                <span class="kw">let </span>working_dir = Konfig::read_working_dir();
+                <span class="kw">let </span>working_dir_path = std::path::Path::new(<span class="kw-2">&amp;</span>working_dir);
+                <span class="kw">let </span>log_file = std::path::Path::new(defaults::LOG_FILE);
+                <span class="kw">let </span>log_file_path = working_dir_path.join(log_file);
+
+                <span class="kw">if </span>!std::path::Path::exists(<span class="kw-2">&amp;</span>log_file_path) {
+                    <span class="comment">// create log file in the working directory
+                    // XXX: Note that using unwrap() here is safe, because
+                    // this function is a called a start up during the
+                    // initialization phase of kong.
+                    </span>File::create(log_file_path).unwrap();
+                }
+            }
+        }
+    }
+}
+<span class="kw">impl </span>Default <span class="kw">for </span>Kong {
+    <span class="doccomment">/// Create new kong instance
+    </span><span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span>config = Konfig::read().expect(<span class="string">&quot;Could not read configuration file.&quot;</span>);
+
+        Kong::init(<span class="kw-2">&amp;</span>config);
+
+        Kong {
+            config,
+            kpassport: <span class="prelude-val">None</span>,
+            input: <span class="prelude-val">None</span>,
+        }
     }
 }
 </code></pre></div>

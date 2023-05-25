@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"constant":[["ADDRESS",""]],"struct":[["AuthKontroller",""]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["inputs",""],["issue_kpassport","Issue `kpassport` (login) controller"]]};

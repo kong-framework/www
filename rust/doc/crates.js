@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["kdata","kerror","kogs","kollection","konfig","kong","krypto"];
+window.ALL_CRATES = ["hello","kong","kong_hello_world_example","kong_kontrollers","krypto"];

@@ -50,27 +50,29 @@
 <a href="#49" id="49">49</a>
 <a href="#50" id="50">50</a>
 <a href="#51" id="51">51</a>
+<a href="#52" id="52">52</a>
 </pre><pre class="rust"><code><span class="doccomment">//! Management of cryptographic keys
 
 </span><span class="kw">use </span>chrono::prelude::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// The context of a key derivation
-</span><span class="kw">pub struct </span>Context&lt;<span class="lifetime">&#39;a</span>&gt; {
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Context&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// Server or application that derives and use the key
-    </span><span class="kw">pub </span>host: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) host: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
     <span class="doccomment">/// The time when the key is derived
-    </span><span class="kw">pub </span>timestamp: DateTime&lt;Utc&gt;,
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) timestamp: DateTime&lt;Utc&gt;,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Context&lt;<span class="lifetime">&#39;a</span>&gt; {
-    <span class="kw">pub fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Convert context to string
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;{} {} kpassport-token&quot;</span>, <span class="self">self</span>.host, <span class="self">self</span>.timestamp)
     }
 }
 
 <span class="doccomment">/// Derive a 32 byte key from specified context and
 /// key material
-</span><span class="kw">pub fn </span>derive_key(context: Context, key_material: <span class="kw-2">&amp;</span>[u8]) -&gt; [u8; <span class="number">32</span>] {
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>derive_key(context: Context&lt;<span class="lifetime">&#39;_</span>&gt;, key_material: <span class="kw-2">&amp;</span>[u8]) -&gt; [u8; <span class="number">32</span>] {
     blake3::derive_key(<span class="kw-2">&amp;</span>context.to_string(), key_material)
 }
 

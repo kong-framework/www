@@ -260,6 +260,8 @@
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
 </pre><pre class="rust"><code><span class="doccomment">//! # 🔑 Authentication
 //!
 //! - [ ] __Username__ and __password__ is used to authenticate users (humans).
@@ -318,14 +320,16 @@
 <span class="attr">#[derive(Clone)]
 </span><span class="doccomment">/// Kong authentication and authorization management
 </span><span class="kw">pub enum </span>Auth {
-    BearerToken(String),
-    Cookie(String),
+    <span class="doccomment">/// Bearer token authentication
+    </span>BearerToken(String),
+    <span class="doccomment">/// Cookie token authentication
+    </span>Cookie(String),
 }
 
 <span class="kw">impl </span>Auth {
     <span class="doccomment">/// Detect if the type of authentication used (cookie based or bearer token based)
     /// from the requests headers
-    </span><span class="kw">pub fn </span>detect_auth_type(auth_headers: AuthHeaders) -&gt; <span class="prelude-ty">Result</span>&lt;Auth, KryptoError&gt; {
+    </span><span class="kw">pub fn </span>detect_auth_type(auth_headers: AuthHeaders&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Auth, KryptoError&gt; {
         <span class="comment">// detect cookie based auth
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(kpass) = auth_headers.cookie {
             <span class="kw">return </span><span class="prelude-val">Ok</span>(Auth::Cookie(kpass.to_string()));
@@ -418,9 +422,9 @@
 <span class="doccomment">/// HTTP authentication methods
 </span><span class="kw">pub struct </span>AuthHeaders&lt;<span class="lifetime">&#39;a</span>&gt; {
     <span class="doccomment">/// Cookie based authentication
-    </span>cookie: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+    </span><span class="kw">pub </span>cookie: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
     <span class="doccomment">/// Bearer token based authentication
-    </span>bearer_token: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+    </span><span class="kw">pub </span>bearer_token: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
 }
 
 <span class="attr">#[cfg(test)]

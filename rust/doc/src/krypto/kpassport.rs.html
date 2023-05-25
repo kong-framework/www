@@ -571,6 +571,11 @@
 <a href="#570" id="570">570</a>
 <a href="#571" id="571">571</a>
 <a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
 </pre><pre class="rust"><code><span class="doccomment">//! # 🪪 Kong Passport
 //!
 //! An authorization token that uses the `keyed_hash()` function from
@@ -692,11 +697,11 @@
     </span><span class="kw">fn </span>from_bytes(bytes: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, KryptoError&gt; {
         <span class="kw">let </span>username = Content::get_username(bytes.clone())<span class="question-mark">?</span>;
         <span class="kw">let </span>host = Content::get_host(bytes.clone())<span class="question-mark">?</span>;
-        <span class="kw">let </span>timestamp = Content::get_timestamp(bytes.clone())<span class="question-mark">?</span>;
+        <span class="kw">let </span>timestamp = Content::get_timestamp(bytes)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(Content {
-            username,
             host,
+            username,
             timestamp,
         })
     }
@@ -776,7 +781,7 @@
 
 <span class="kw">impl </span>Kpassport {
     <span class="doccomment">/// Generates a new __unsigned__ `kpassport`
-    </span><span class="kw">pub fn </span>new_unsigned(host: <span class="kw-2">&amp;</span>str, username: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Kpassport, KryptoError&gt; {
+    </span><span class="kw">pub fn </span>new_unsigned(username: <span class="kw-2">&amp;</span>str, host: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Kpassport, KryptoError&gt; {
         <span class="kw">if </span>username.len() &gt; USERNAME_LENGTH_LIMIT {
             <span class="kw">return </span><span class="prelude-val">Err</span>(KryptoError::KpassportSize);
         }
@@ -786,8 +791,8 @@
         }
 
         <span class="kw">let </span>content = Content {
-            host: host.to_string(),
             username: username.to_string(),
+            host: host.to_string(),
             timestamp: Utc::now(),
         };
 
@@ -861,7 +866,8 @@
         })
     }
 
-    <span class="kw">pub fn </span>signature_from_bytes(bytes: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Hash, KryptoError&gt; {
+    <span class="doccomment">/// Derive signature from bytes
+    </span><span class="kw">pub fn </span>signature_from_bytes(bytes: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Hash, KryptoError&gt; {
         <span class="kw">let </span>signature_hex = hex::encode(bytes);
         <span class="kw">let </span>signature = Hash::from_hex(signature_hex);
 
@@ -1141,6 +1147,10 @@
         <span class="macro">assert_eq!</span>(kpassport.content, derived_kpassport.content);
         <span class="macro">assert_eq!</span>(kpassport.signature, derived_kpassport.signature);
         <span class="macro">assert_eq!</span>(kpassport, derived_kpassport);
+        <span class="macro">assert_eq!</span>(
+            kpassport.content.username,
+            derived_kpassport.content.username
+        );
     }
 }
 </code></pre></div>

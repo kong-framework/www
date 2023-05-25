@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["IssueKpassportKontroller","Accounts API endpoint handler"],["IssueKpassportResponse","Issue kpassport in other words login"]]};

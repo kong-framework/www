@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["ValidationError","Validation error"]],"struct":[["Validate","🔬 User input validator"]]};

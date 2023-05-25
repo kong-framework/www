@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["Account","A generic account"],["PublicAccount","Account Public Data"]]};

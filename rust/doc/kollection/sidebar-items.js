@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":[["sql","SQL statements and queries"]],"struct":[["Kollection","Database management system"]]};

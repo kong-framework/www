@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["Property","Data type to represent a physical property such as a house."],["PropertyInput","Input provided by the user, to create a new property."]]};

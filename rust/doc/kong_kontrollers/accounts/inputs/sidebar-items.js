@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["AccountCreationInput","Data used as input to create a new account."]]};

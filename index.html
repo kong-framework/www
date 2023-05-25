@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>kong</title>
+  <title>🔥 kong</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -105,7 +105,7 @@
   <!--===================== Twitter OG data =========================-->
   <meta name="twitter:title" content="kong">
   <meta name="twitter:description" content="secure web node">
-  <meta name="twitter:image" content="https://kong.kwatafana.org/logo.jpeg">
+  <meta name="twitter:image" content="https://kwatafana.org/logo.jpeg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="kong">
 
@@ -118,92 +118,98 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">kong</h1>
+<h1 class="title">🔥 kong</h1>
 </header>
-<pre class="text"><code>                              )                 
-                           ( /(          (  (   
-                            )\())(   (    )\))(  
-                           ((_)\ )\  )\ )((_))\  
-                           | |(_|(_)_(_/( (()(_) 
-                           | / / _ \ &#39; \)) _` |  
-                           |_\_\___/_||_|\__, |  
-                         secure web node |___/ v0.1.0</code></pre>
-<p><a
-href="https://kong.kwatafana.org/rust/doc/kong/index.html">documentation</a></p>
-<h2 id="features">Features</h2>
-<ul class="incremental" class="task-list">
-<li><input type="checkbox" />Confidentiality</li>
-<li><input type="checkbox" />Integrity</li>
-<li><input type="checkbox" />Availability</li>
-<li><input type="checkbox" />Database Management</li>
-<li><input type="checkbox" />Session Management</li>
-<li><input type="checkbox" />HTTP+JSON API</li>
-<li><input type="checkbox" />Optional Federation</li>
-<li><input type="checkbox" />Built in HTTP server</li>
-<li><input type="checkbox" />Account Management</li>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#links" id="toc-links">🖇️ Links</a></li>
+<li><a href="#kong-example" id="toc-kong-example">✨ <code>kong</code>
+example</a></li>
+<li><a href="#features" id="toc-features">⭐ Features</a></li>
+<li><a href="#kong-roadmap" id="toc-kong-roadmap">🗺️ <code>kong</code>
+Roadmap</a></li>
+<li><a href="#unlicense" id="toc-unlicense">🎫 Unlicense</a></li>
 </ul>
-<h2 id="usage">Usage</h2>
+</nav>
+<pre class="text"><code>                              )
+                           ( /(          (  (
+                            )\())(   (    )\))(
+                           ((_)\ )\  )\ )((_))\
+                           | |(_|(_)_(_/( (()(_)
+                           | / / _ \ &#39; \)) _` |
+                           |_\_\___/_||_|\__, |
+                         secure web node |___/ v0.1.0</code></pre>
+<p><code>kong</code> is a web framework that is designed to be secure
+against common web server vulnerabilities.</p>
+<h2 id="links">🖇️ Links</h2>
+<ul class="incremental">
+<li><a href="https://kong.kwatafana.org/rust/doc/kong/index.html">Source
+Code</a></li>
+<li><a href="https://kong.kwatafana.org/rust/doc/kong/index.html">Rust
+documentation</a></li>
+</ul>
+<h2 id="kong-example">✨ <code>kong</code> example</h2>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">kong::</span><span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">kontrol::</span><span class="op">{</span>Kontrol<span class="op">,</span> Kontroller<span class="op">},</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">kroute::</span>Kroute<span class="op">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">outsource::</span>server<span class="op">,</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    KError<span class="op">,</span> Konfig<span class="op">,</span> Kong<span class="op">,</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">server::</span><span class="op">{</span>Request<span class="op">,</span> Response<span class="op">};</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> KError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> kontrollers <span class="op">=</span> <span class="pp">vec!</span>[</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        Kontroller <span class="op">{</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            address<span class="op">:</span> <span class="st">&quot;/&quot;</span><span class="op">,</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            handle<span class="op">:</span> front_page<span class="op">,</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        Kontroller <span class="op">{</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            address<span class="op">:</span> <span class="st">&quot;/news/:article&quot;</span><span class="op">,</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            handle<span class="op">:</span> article<span class="op">,</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> kong<span class="op">:</span> Mutex<span class="op">&lt;</span>Kong<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">Mutex::</span>new(<span class="pp">Kong::</span>new(kontrollers))<span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Connect kong database</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    kong<span class="op">.</span>lock()<span class="op">.</span>unwrap()<span class="op">.</span>database<span class="op">.</span>connect()<span class="op">?;</span></span>
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">kong::</span><span class="op">{</span>json<span class="op">,</span> kroute<span class="op">,</span> server<span class="op">,</span> Kong<span class="op">,</span> Kontrol<span class="op">,</span> Method<span class="op">};</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// start kong router, kontrolling provided endpoint kontrollers</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    kroute(<span class="pp">vec!</span>[<span class="dt">Box</span><span class="pp">::</span>new(HelloKontroller <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        address<span class="op">:</span> <span class="st">&quot;/hello&quot;</span><span class="op">.</span>to_string()<span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        method<span class="op">:</span> <span class="pp">Method::</span>Get<span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)])<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">/// Hello API endpoint controller</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HelloKontroller <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Endpoint address</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    address<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Endpoint HTTP method</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    method<span class="op">:</span> Method<span class="op">,</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Kontrol <span class="cf">for</span> HelloKontroller <span class="op">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> address(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>address<span class="op">.</span>clone()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> method(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> Method <span class="op">{</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>method</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Read port from the cong config file (passed in as a command line argument)</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> port <span class="op">=</span> <span class="pp">Konfig::</span>read_port()<span class="op">;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> address <span class="op">=</span> <span class="pp">format!</span>(<span class="st">&quot;localhost:{}&quot;</span><span class="op">,</span> port)<span class="op">;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">: starting server...&quot;</span>)<span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;: running @ {address}&quot;</span>)<span class="op">;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="pp">server::</span>start_server(address<span class="op">,</span> <span class="kw">move</span> <span class="op">|</span>request<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> kong <span class="op">=</span> kong<span class="op">.</span>lock()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Kroute::</span>kroute(<span class="op">&amp;</span><span class="kw">mut</span> kong<span class="op">,</span> request)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">// front page</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> front_page(kong<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Kong<span class="op">,</span> req<span class="op">:</span> <span class="op">&amp;</span>Request) <span class="op">-&gt;</span> Response <span class="op">{</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Response::</span>text(<span class="st">&quot;Yebo Yes&quot;</span>)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">// News article page</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> article(kong<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Kong<span class="op">,</span> req<span class="op">:</span> <span class="op">&amp;</span>Request) <span class="op">-&gt;</span> Response <span class="op">{</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> params <span class="op">=</span> <span class="pp">Kroute::</span>get_url_params(<span class="op">&amp;</span>kong<span class="op">.</span>router<span class="op">,</span> <span class="op">&amp;</span>req<span class="op">.</span>url())<span class="op">;</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">match</span> params <span class="op">{</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Ok</span>(params) <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">let</span> <span class="cn">Some</span>(article) <span class="op">=</span> params<span class="op">.</span>find(<span class="st">&quot;article&quot;</span>) <span class="op">{</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Response::</span>text(article)<span class="op">.</span>with_status_code(<span class="dv">400</span>)</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Response::</span>text(<span class="st">&quot;could not parse url&quot;</span>)<span class="op">.</span>with_status_code(<span class="dv">400</span>)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Err</span>(_) <span class="op">=&gt;</span> <span class="pp">Response::</span>text(<span class="st">&quot;could not parse url&quot;</span>)<span class="op">.</span>with_status_code(<span class="dv">400</span>)<span class="op">,</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<h2 id="unlicense">Unlicense</h2>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> kontrol(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> _kong<span class="op">:</span> <span class="op">&amp;</span>Kong) <span class="op">-&gt;</span> <span class="pp">server::</span>Response <span class="op">{</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> res <span class="op">=</span> <span class="pp">json!</span>(<span class="op">{</span> <span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;Hello World&quot;</span> <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="pp">server::Response::</span>json(<span class="op">&amp;</span>res)<span class="op">.</span>with_status_code(<span class="dv">200</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="features">⭐ Features</h2>
+<ul class="incremental" class="task-list">
+<li><input type="checkbox" checked="" /><strong>Logging</strong>
+<ul class="incremental" class="task-list">
+<li><input type="checkbox" checked="" />Console logging</li>
+<li><input type="checkbox" checked="" />File logging</li>
+</ul></li>
+</ul>
+<h2 id="kong-roadmap">🗺️ <code>kong</code> Roadmap</h2>
+<ul class="incremental" class="task-list">
+<li><input type="checkbox" />API <code>0.1.0</code></li>
+<li><input type="checkbox" />API Refinements <code>0.2.0</code></li>
+<li><input type="checkbox" />API Refactor, Tests and documentation
+<code>0.3.0</code></li>
+<li><input type="checkbox" />Core Security <code>0.4.0</code></li>
+<li><input type="checkbox" />Core Security Refinements
+<code>0.5.0</code></li>
+<li><input type="checkbox" />Pen-testing <code>0.6.0</code></li>
+<li><input type="checkbox" />Performance Enhancements
+<code>0.7.0</code></li>
+<li><input type="checkbox" />In depth Testing, Refactor and Fuzzing
+<code>0.8.0</code></li>
+<li><input type="checkbox" />Pen-testing, Security Audit
+<code>0.9.0</code></li>
+<li><input type="checkbox" />In depth documentation
+<code>1.0.0</code></li>
+<li><input type="checkbox" />Research <code>1.1.0</code></li>
+</ul>
+<h2 id="unlicense">🎫 Unlicense</h2>
 <p>Written and placed in the public domain by Jackson G. Kaindume.</p>
 <p>Anyone is free to copy, modify, publish, use, compile, sell, or
 distribute this software, either in source code form or as a compiled
@@ -212,7 +218,9 @@ means.</p>
 <p>For more information, please refer to the <strong>UNLICENSE</strong>
 file in the repository.</p>
 <hr />
-<p><a href="https://kong.kwatafana.org/"
-class="uri">https://kong.kwatafana.org/</a></p>
+<p>🌐 <a href="https://kong.kwatafana.org/"
+class="uri">https://kong.kwatafana.org/</a> | 📧 <a
+href="mailto:cy6erlion@protonmail.com"
+class="email">cy6erlion@protonmail.com</a></p>
 </body>
 </html>

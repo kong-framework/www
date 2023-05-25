@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CreateAccountKontroller","Accounts API endpoint handler"]]};
