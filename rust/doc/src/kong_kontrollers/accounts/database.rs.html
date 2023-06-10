@@ -387,24 +387,16 @@
 <a href="#387" id="387">387</a>
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
-<a href="#390" id="390">390</a>
-<a href="#391" id="391">391</a>
-<a href="#392" id="392">392</a>
-<a href="#393" id="393">393</a>
-</pre><pre class="rust"><code><span class="doccomment">//! # 🗄️ Accounts Database
+</pre><pre class="rust"><code><span class="doccomment">//! # 🗄️ Accounts database management
 //!
-
-</span><span class="attr">#![doc(html_favicon_url = <span class="string">&quot;https://kwatafana.org/logo.jpeg&quot;</span>)]
-#![doc(html_logo_url = <span class="string">&quot;https://kwatafana.org/logo.jpeg&quot;</span>)]
-#![warn(missing_docs, unreachable_pub, future_incompatible, rust_2018_idioms)]
-
 </span><span class="kw">use super</span>::{Account, PublicAccount};
 <span class="kw">use </span><span class="kw">crate</span>::error::KontrollerError;
 <span class="kw">use </span>rusqlite::{params, Connection};
 
 <span class="doccomment">/// SQL statements and queries
 </span><span class="kw">pub mod </span>sql {
-    <span class="kw">pub const </span>CREATE_ACCOUNTS_TABLE: <span class="kw-2">&amp;</span>str = <span class="string">&quot;
+    <span class="doccomment">/// Create user accounts table
+    </span><span class="kw">pub const </span>CREATE_ACCOUNTS_TABLE: <span class="kw-2">&amp;</span>str = <span class="string">&quot;
       CREATE TABLE IF NOT EXISTS accounts (
         id INTEGER PRIMARY KEY,                      -- The Identifier of the account, the Rust Type is `i64`
         username TEXT UNIQUE NOT NULL,               -- The username of the account
@@ -472,7 +464,7 @@
     <span class="doccomment">/// Open SQLite connection, create tables
     </span><span class="kw">pub fn </span>connect(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), KontrollerError&gt; {
         <span class="comment">// Open database connection
-        </span><span class="kw">let </span><span class="kw-2">mut </span>conn =
+        </span><span class="kw">let </span>conn =
             Connection::open(<span class="self">self</span>.path.clone()).map_err(|<span class="kw">_</span>| KontrollerError::DbConnection)<span class="question-mark">?</span>;
         <span class="self">self</span>.conn = <span class="prelude-val">Some</span>(conn);
 

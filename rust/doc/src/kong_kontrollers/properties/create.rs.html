@@ -176,22 +176,28 @@
 <a href="#176" id="176">176</a>
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
-</pre><pre class="rust"><code><span class="doccomment">//! Allows an admin `Account` to create a property
+<a href="#179" id="179">179</a>
+</pre><pre class="rust"><code><span class="doccomment">//! # ✨ Property creation kontroller
+//!
+//! This __kontroller__ is used to create a new user real estate
+//! property. It gets the input from the HTTP request validates it
+//! and creates the property from the validated input. The property
+//! is stored in an SQLite database.
 
 </span><span class="kw">use </span><span class="kw">super</span>::database::Database;
 <span class="kw">use super</span>::{CreatePropertyInput, Property};
 <span class="kw">use </span><span class="kw">crate</span>::error::KontrollerError;
-<span class="kw">use </span>kong::{
-    inputs::UserInput, json, krypto::kpassport::Kpassport, server, ErrorResponse, JsonValue, Kong,
-    Kontrol, Method,
-};
+<span class="kw">use </span>kong::{inputs::UserInput, server, ErrorResponse, JsonValue, Kong, Kontrol, Method};
 <span class="kw">use </span>std::sync::{Arc, Mutex};
 
-<span class="doccomment">/// Create property API endpoint handler
+<span class="doccomment">/// ✨ Create property kontroller
 </span><span class="kw">pub struct </span>CreatePropertyKontroller {
-    <span class="kw">pub </span>address: String,
-    <span class="kw">pub </span>method: Method,
-    <span class="kw">pub </span>properties_database: Arc&lt;Mutex&lt;Database&gt;&gt;,
+    <span class="doccomment">/// Address to kontroller
+    </span><span class="kw">pub </span>address: String,
+    <span class="doccomment">/// HTTP method supported by the kontroller
+    </span><span class="kw">pub </span>method: Method,
+    <span class="doccomment">/// SQLite database handle
+    </span><span class="kw">pub </span>database: Arc&lt;Mutex&lt;Database&gt;&gt;,
 }
 
 <span class="kw">impl </span>CreatePropertyKontroller {
@@ -241,7 +247,7 @@
 
     <span class="doccomment">/// Method supported by endpoint
     </span><span class="kw">fn </span>method(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Method {
-        <span class="self">self</span>.method.clone()
+        <span class="self">self</span>.method
     }
 
     <span class="kw">fn </span>get_input(<span class="kw-2">&amp;</span><span class="self">self</span>, request: <span class="kw-2">&amp;</span>server::Request) -&gt; <span class="prelude-ty">Option</span>&lt;JsonValue&gt; {
@@ -336,11 +342,7 @@
             };
 
             <span class="comment">// Store property into the database
-            </span><span class="kw">let </span>res = <span class="self">self
-                </span>.properties_database
-                .lock()
-                .unwrap()
-                .add_property(<span class="kw-2">&amp;</span>property);
+            </span><span class="kw">let </span>res = <span class="self">self</span>.database.lock().unwrap().add_property(<span class="kw-2">&amp;</span>property);
 
             <span class="kw">match </span>res {
                 <span class="prelude-val">Ok</span>(()) =&gt; server::Response::json(<span class="kw-2">&amp;</span>property).with_status_code(<span class="number">201</span>),

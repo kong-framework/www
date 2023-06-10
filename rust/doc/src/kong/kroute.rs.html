@@ -168,80 +168,128 @@
 <a href="#167" id="167">167</a>
 <a href="#168" id="168">168</a>
 <a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
 </pre><pre class="rust"><code><span class="doccomment">//! 🌀 `kong` request router
 
 </span><span class="kw">use crate</span>::{error_response::ErrorResponse, konfig::Konfig, Kong, Kontrol};
 
 <span class="kw">use </span><span class="kw">crate</span>::log::Log;
 <span class="kw">use </span><span class="kw">crate</span>::KError;
+<span class="kw">use </span>core::fmt;
 <span class="kw">use </span>krypto::{error::KryptoError, kpassport::Kpassport};
 <span class="kw">use </span>route_recognizer::Router;
 <span class="kw">use </span>std::str::FromStr;
 <span class="kw">use </span>std::sync::Mutex;
 
+<span class="doccomment">/// Kontoller Handle
+</span><span class="kw">type </span>KontrollerHandle = Box&lt;<span class="kw">dyn </span>Kontrol + std::marker::Sync + std::marker::Send + <span class="lifetime">&#39;static</span>&gt;;
+
 <span class="doccomment">/// 🌀 `kong` request routing
-</span><span class="kw">pub fn </span>kroute(
-    kontrollers: Vec&lt;Box&lt;<span class="kw">dyn </span>Kontrol + std::marker::Sync + std::marker::Send + <span class="lifetime">&#39;static</span>&gt;&gt;,
-) -&gt; rouille::Response {
+</span><span class="kw">pub fn </span>kroute(kontrollers: Vec&lt;KontrollerHandle&gt;) -&gt; rouille::Response {
     <span class="kw">let </span>port = Konfig::read_port();
     <span class="kw">let </span>address = <span class="macro">format!</span>(<span class="string">&quot;localhost:{}&quot;</span>, port);
     <span class="kw">let </span>kong: Kong = Default::default();
     <span class="kw">let </span>kong: Mutex&lt;Kong&gt; = Mutex::new(kong);
     <span class="kw">let </span><span class="kw-2">mut </span>router = Router::new();
 
-    <span class="comment">// prepare kontrollers
-    </span><span class="kw">for </span>kontrol <span class="kw">in </span>kontrollers {
-        router.add(<span class="kw-2">&amp;</span>kontrol.address(), kontrol);
+    <span class="comment">// prepare kontrollers for routing
+    </span><span class="kw">for </span>kontroller <span class="kw">in </span>kontrollers {
+        <span class="kw">let </span>kontroller_id = <span class="macro">format!</span>(<span class="string">&quot;{}{}&quot;</span>, kontroller.address(), kontroller.method());
+        router.add(<span class="kw-2">&amp;</span>kontroller_id, kontroller);
     }
 
     Log::log(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;kong node started @ {address}&quot;</span>)).expect(<span class="string">&quot;Error while logging&quot;</span>);
 
     rouille::start_server(address, <span class="kw">move </span>|request| {
         <span class="kw">let </span><span class="kw-2">mut </span>kong = kong.lock().unwrap();
-        <span class="kw">let </span>request_log = <span class="macro">format!</span>(<span class="string">&quot;{} {}&quot;</span>, request.method(), request.url());
-
-        Log::log(<span class="kw-2">&amp;</span>request_log).expect(<span class="string">&quot;Error while logging&quot;</span>);
 
         <span class="comment">// Handle static files
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(path) = <span class="kw-2">&amp;</span>kong.config.static_files_path {
             <span class="kw">let </span>response = rouille::match_assets(request, <span class="kw-2">&amp;</span>path);
             <span class="kw">if </span>response.is_success() {
+                log_request(request, response.status_code);
                 <span class="kw">return </span>response;
             }
         }
 
-        <span class="comment">// check request url
-        </span><span class="kw">let </span>recognized_route = router.recognize(<span class="kw-2">&amp;</span>request.url());
+        <span class="kw">let </span>response = filter(request, <span class="kw-2">&amp;</span>router, <span class="kw-2">&amp;mut </span>kong);
+        log_request(request, response.status_code);
+        response
+    })
+}
 
-        <span class="kw">match </span>recognized_route {
-            <span class="prelude-val">Ok</span>(route) =&gt; {
-                <span class="kw">if let </span><span class="prelude-val">Ok</span>(kpassport) = get_valid_auth_token(<span class="kw-2">&amp;</span>kong, request) {
-                    kong.kpassport = <span class="prelude-val">Some</span>(kpassport);
-                } <span class="kw">else </span>{
-                    kong.kpassport = <span class="prelude-val">None
-                </span>};
+<span class="comment">// filter route
+</span><span class="kw">fn </span>filter(
+    request: <span class="kw-2">&amp;</span>rouille::Request,
+    router: <span class="kw-2">&amp;</span>Router&lt;KontrollerHandle&gt;,
+    kong: <span class="kw-2">&amp;mut </span>Kong,
+) -&gt; rouille::Response {
+    <span class="comment">// check request url
+    </span><span class="kw">let </span>kontroller_id = <span class="macro">format!</span>(<span class="string">&quot;{}{}&quot;</span>, request.url(), request.method());
+    <span class="kw">let </span>recognized_route = router.recognize(<span class="kw-2">&amp;</span>kontroller_id);
 
-                <span class="kw">let </span>expected_method = route.handler().method();
+    <span class="kw">match </span>recognized_route {
+        <span class="prelude-val">Ok</span>(route) =&gt; {
+            <span class="comment">// get a valid kpassport token
+            </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(kpassport) = get_valid_auth_token(kong, request) {
+                kong.kpassport = <span class="prelude-val">Some</span>(kpassport);
+            } <span class="kw">else </span>{
+                kong.kpassport = <span class="prelude-val">None
+            </span>};
+
+            <span class="kw">let </span>expected_method = route.handler().method();
+
+            <span class="comment">// check if HTTP method is supported
+            </span><span class="kw">if </span>is_method_supported(request, <span class="kw-2">&amp;</span>expected_method) {
                 <span class="kw">let </span>input_json_str = route.handler().get_input(request);
 
                 <span class="comment">// validate input_json_str
                 </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(input) = route.handler().validate(input_json_str) {
                     kong.input = input;
-                    <span class="kw">let </span>response = route.handler().kontrol(<span class="kw-2">&amp;</span>kong);
 
-                    <span class="comment">// check if HTTP method is supported
-                    </span><span class="kw">if </span>is_method_supported(request, <span class="kw-2">&amp;</span>expected_method) {
-                        response
-                    } <span class="kw">else </span>{
-                        ErrorResponse::not_allowed()
-                    }
+                    <span class="comment">// kontrol
+                    </span>route.handler().kontrol(kong)
                 } <span class="kw">else </span>{
                     ErrorResponse::bad_request()
                 }
+            } <span class="kw">else </span>{
+                ErrorResponse::not_allowed()
             }
-            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; ErrorResponse::not_found(),
         }
-    })
+        <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; ErrorResponse::not_found(),
+    }
 }
 
 <span class="doccomment">/// Check HTTP method
@@ -304,6 +352,12 @@
     }
 }
 
+<span class="doccomment">/// Log request
+</span><span class="kw">fn </span>log_request(request: <span class="kw-2">&amp;</span>rouille::Request, status_code: u16) {
+    <span class="kw">let </span>log = <span class="macro">format!</span>(<span class="string">&quot;{} {} = {}&quot;</span>, request.method(), request.url(), status_code);
+    Log::log(<span class="kw-2">&amp;</span>log).expect(<span class="string">&quot;Error while logging&quot;</span>);
+}
+
 <span class="attr">#[derive(Clone, PartialEq)]
 </span><span class="doccomment">/// 🚥 HTTP methods
 </span><span class="kw">pub enum </span>Method {
@@ -334,6 +388,18 @@
             <span class="string">&quot;DELETE&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Method::Delete),
             <span class="string">&quot;OPTIONS&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Method::Options),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(KError::InvalidHttpMethod),
+        }
+    }
+}
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>Method {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Get =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;GET&quot;</span>),
+            <span class="self">Self</span>::Post =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;POST&quot;</span>),
+            <span class="self">Self</span>::Put =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;PUT&quot;</span>),
+            <span class="self">Self</span>::Head =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;HEAD&quot;</span>),
+            <span class="self">Self</span>::Delete =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Delete&quot;</span>),
+            <span class="self">Self</span>::Options =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Options&quot;</span>),
         }
     }
 }

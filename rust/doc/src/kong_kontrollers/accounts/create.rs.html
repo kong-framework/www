@@ -105,7 +105,34 @@
 <a href="#105" id="105">105</a>
 <a href="#106" id="106">106</a>
 <a href="#107" id="107">107</a>
-</pre><pre class="rust"><code><span class="doccomment">//! Create an account endpoint controller
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+</pre><pre class="rust"><code><span class="doccomment">//! # ✨ Account creation kontroller
+//!
+//! This __kontroller__ is used to create a new user account. It gets
+//! the input from the HTTP request validates it and creates an
+//! account from the validated input. The account is stored in an SQLite
+//! database.
+//!
+//! ## 👮‍♂️ Admin accounts
+//! If the input from the request uses the admin email that is in
+//! the `konfig` file, the account that is created is an admin
+//! account. Admin accounts simply means an account stored in the
+//! database with it&#39;s `account_type` field as `admin`, from this
+//! you can build up your own higher level abstractions.
 
 </span><span class="kw">use </span><span class="kw">super</span>::database::Database;
 <span class="kw">use super</span>::{Account, AccountCreationInput, PublicAccount};
@@ -113,29 +140,42 @@
 <span class="kw">use </span>kong::{inputs::UserInput, server, ErrorResponse, JsonValue, Kong, Kontrol, Method};
 <span class="kw">use </span>std::sync::{Arc, Mutex};
 
-<span class="doccomment">/// Accounts API endpoint handler
+<span class="doccomment">/// ## ✨ Accounts creation kontroller
+/// Can be used to create both admin and non-admin accounts
 </span><span class="kw">pub struct </span>CreateAccountKontroller {
-    <span class="kw">pub </span>address: String,
-    <span class="kw">pub </span>method: Method,
-    <span class="kw">pub </span>accounts_database: Arc&lt;Mutex&lt;Database&gt;&gt;,
+    <span class="doccomment">/// Address to kontroller (url path)
+    </span><span class="kw">pub </span>address: String,
+    <span class="doccomment">/// HTTP method supported by the kontroller
+    </span><span class="kw">pub </span>method: Method,
+    <span class="doccomment">/// SQLite database handle
+    </span><span class="kw">pub </span>database: Arc&lt;Mutex&lt;Database&gt;&gt;,
 }
 
 <span class="kw">impl </span>Kontrol <span class="kw">for </span>CreateAccountKontroller {
-    <span class="doccomment">/// Endpoint&#39;s address
+    <span class="doccomment">/// kontroller address
     </span><span class="kw">fn </span>address(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.address.clone()
     }
 
-    <span class="doccomment">/// Method supported by endpoint
+    <span class="doccomment">/// Method supported by kontroller
     </span><span class="kw">fn </span>method(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Method {
-        <span class="self">self</span>.method.clone()
+        <span class="self">self</span>.method
     }
 
-    <span class="doccomment">/// Get user input
+    <span class="doccomment">/// Get user input from HTTP request
     </span><span class="kw">fn </span>get_input(<span class="kw-2">&amp;</span><span class="self">self</span>, request: <span class="kw-2">&amp;</span>server::Request) -&gt; <span class="prelude-ty">Option</span>&lt;JsonValue&gt; {
-        <span class="comment">// TODO: don&#39;t use unwrap
-        </span><span class="kw">let </span>input: AccountCreationInput = server::input::json_input(request).unwrap();
-        <span class="prelude-val">Some</span>(input.as_json())
+        <span class="kw">let </span>input: <span class="prelude-ty">Option</span>&lt;AccountCreationInput&gt; =
+            <span class="kw">if let </span><span class="prelude-val">Ok</span>(input) = server::input::json_input(request) {
+                <span class="prelude-val">Some</span>(input)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>};
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(input) = input {
+            <span class="prelude-val">Some</span>(input.as_json())
+        } <span class="kw">else </span>{
+            <span class="prelude-val">None
+        </span>}
     }
 
     <span class="doccomment">/// Validate user input
@@ -169,12 +209,7 @@
                     <span class="comment">// create admin account
                     </span><span class="kw">if </span>input.email == kong.config.admin_email {
                         account.account_type = <span class="prelude-val">Some</span>(<span class="string">&quot;admin&quot;</span>.to_string());
-                        <span class="kw">match </span><span class="self">self
-                            </span>.accounts_database
-                            .lock()
-                            .unwrap()
-                            .create_admin_account(<span class="kw-2">&amp;</span>account)
-                        {
+                        <span class="kw">match </span><span class="self">self</span>.database.lock().unwrap().create_admin_account(<span class="kw-2">&amp;</span>account) {
                             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
                                 <span class="kw">let </span>public_account: PublicAccount = account.into();
                                 server::Response::json(<span class="kw-2">&amp;</span>public_account).with_status_code(<span class="number">201</span>)
@@ -186,12 +221,7 @@
                         }
                     } <span class="kw">else </span>{
                         <span class="comment">// Create normal account
-                        </span><span class="kw">match </span><span class="self">self
-                            </span>.accounts_database
-                            .lock()
-                            .unwrap()
-                            .create_account(<span class="kw-2">&amp;</span>account)
-                        {
+                        </span><span class="kw">match </span><span class="self">self</span>.database.lock().unwrap().create_account(<span class="kw-2">&amp;</span>account) {
                             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
                                 <span class="kw">let </span>public_account: PublicAccount = account.into();
                                 server::Response::json(<span class="kw-2">&amp;</span>public_account).with_status_code(<span class="number">201</span>)

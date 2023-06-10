@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["create","Allows an admin `Account` to create a property"],["database",""],["get","Properties API endpoint controller"],["inputs",""]],"struct":[["Property",""]]};
+window.SIDEBAR_ITEMS = {"mod":[["create","✨ Property creation kontroller"],["database",""],["get","Properties API endpoint controller"],["inputs","⌨️ User Input"]],"struct":[["Property","🏠 A real estate property."]]};

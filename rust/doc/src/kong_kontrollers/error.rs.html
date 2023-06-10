@@ -39,9 +39,19 @@
 <a href="#39" id="39">39</a>
 <a href="#40" id="40">40</a>
 <a href="#41" id="41">41</a>
-</pre><pre class="rust"><code><span class="kw">use </span>std::fmt;
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+</pre><pre class="rust"><code><span class="doccomment">//! # 🚨 Kontroller Errors
+//!
+//! Contains errors that can occur in a __kontroller__
 
-<span class="attr">#[derive(Debug)]
+</span><span class="kw">use </span>std::fmt;
+
+<span class="doccomment">/// # 🚨 Kontroller Errors
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span>KontrollerError {
     <span class="doccomment">/// Database connection error
     </span>DbConnection,

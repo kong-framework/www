@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["CreateAccountKontroller","Accounts API endpoint handler"]]};
+window.SIDEBAR_ITEMS = {"struct":[["CreateAccountKontroller","✨ Accounts creation kontroller"]]};

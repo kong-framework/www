@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["create","Create an account endpoint controller"],["database","🗄️ Accounts Database"],["inputs",""]],"struct":[["Account","A generic account"],["PublicAccount","Account Public Data"]]};
+window.SIDEBAR_ITEMS = {"mod":[["create","✨ Account creation kontroller"],["database","🗄️ Accounts database management"],["inputs","⌨️ Account input"]],"struct":[["Account","😀 A generic user account"],["PublicAccount","🥸 Account Public Data"]]};

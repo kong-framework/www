@@ -52,15 +52,27 @@
 <a href="#52" id="52">52</a>
 <a href="#53" id="53">53</a>
 <a href="#54" id="54">54</a>
-</pre><pre class="rust"><code><span class="kw">use </span>kong::{
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+</pre><pre class="rust"><code><span class="doccomment">//! # ⌨️ Account input
+//!
+//! User input data, that is used to create a new account.
+
+</span><span class="kw">use </span>kong::{
     inputs::UserInput,
     json, json_from_str,
     validate::{Validate, ValidationError},
     JsonError, JsonValue,
 };
-<span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="kw">use </span>serde::Deserialize;
 
-<span class="doccomment">/// Data used as input to create a new account.
+<span class="doccomment">/// ## ⌨️ Account creation input
+///
+/// Data used as input to create a new account.
 </span><span class="attr">#[derive(Deserialize, Clone)]
 </span><span class="kw">pub struct </span>AccountCreationInput {
     <span class="doccomment">/// Account&#39;s username

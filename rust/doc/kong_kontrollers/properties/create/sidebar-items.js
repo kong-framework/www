@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["CreatePropertyKontroller","Create property API endpoint handler"]]};
+window.SIDEBAR_ITEMS = {"struct":[["CreatePropertyKontroller","✨ Create property kontroller"]]};
