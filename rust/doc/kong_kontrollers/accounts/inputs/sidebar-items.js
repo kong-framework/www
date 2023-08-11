@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["AccountCreationInput","⌨️ Account creation input"]]};
+window.SIDEBAR_ITEMS = {"struct":["AccountCreationInput"]};

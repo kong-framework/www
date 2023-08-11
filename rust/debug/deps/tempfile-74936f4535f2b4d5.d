@@ -1,0 +1,12 @@
+/home/kaindume/k/kong/website/rust/debug/deps/tempfile-74936f4535f2b4d5.rmeta: /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/lib.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/dir.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/error.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/mod.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/mod.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/spooled.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/util.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/unix.rs
+
+/home/kaindume/k/kong/website/rust/debug/deps/tempfile-74936f4535f2b4d5.d: /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/lib.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/dir.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/error.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/mod.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/mod.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/spooled.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/util.rs /home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/unix.rs
+
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/lib.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/dir.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/error.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/mod.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/mod.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/spooled.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/util.rs:
+/home/kaindume/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tempfile-3.4.0/src/file/imp/unix.rs:

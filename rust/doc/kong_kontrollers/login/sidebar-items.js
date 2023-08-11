@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["inputs","🔑 User inputs for the `login` kontroller"]],"struct":[["LoginKontroller","Login accounts API endpoint handler"],["LoginResponse","Login response message"]]};
+window.SIDEBAR_ITEMS = {"mod":["inputs"],"struct":["LoginKontroller","LoginResponse"]};

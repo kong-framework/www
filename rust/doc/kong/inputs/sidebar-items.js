@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["UserInput","⌨️ User input management"]]};
+window.SIDEBAR_ITEMS = {"trait":["UserInput"]};

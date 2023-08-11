@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["CreateAccountKontroller","✨ Accounts creation kontroller"]]};
+window.SIDEBAR_ITEMS = {"struct":["CreateAccountKontroller"]};

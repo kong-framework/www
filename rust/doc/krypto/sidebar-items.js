@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["authentication","🔑 Authentication"],["defaults","Default values"],["error","Krypto errors"],["kpassport","🪪 Kong Passport"],["password","🔏 Password management"]]};
+window.SIDEBAR_ITEMS = {"mod":["authentication","defaults","error","kpassport","password"]};

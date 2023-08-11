@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["CreatePropertyInput","⌨️ Property creation input"]]};
+window.SIDEBAR_ITEMS = {"struct":["CreatePropertyInput"]};

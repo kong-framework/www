@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["create","✨ Property creation kontroller"],["database",""],["get","Properties API endpoint controller"],["inputs","⌨️ User Input"]],"struct":[["Property","🏠 A real estate property."]]};
+window.SIDEBAR_ITEMS = {"mod":["create","database","get","inputs"],"struct":["Property"]};

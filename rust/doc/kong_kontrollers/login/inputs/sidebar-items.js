@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["AccountLoginInput","Account authentication input"]]};
+window.SIDEBAR_ITEMS = {"struct":["AccountLoginInput"]};

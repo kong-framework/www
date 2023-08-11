@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["Database","database controller"]]};
+window.SIDEBAR_ITEMS = {"struct":["Database"]};

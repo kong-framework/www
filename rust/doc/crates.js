@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["hello","kong","kong_hello_world_example","kong_kontrollers","krypto"];
+window.ALL_CRATES = ["kong","kong_hello_world_example","kong_js_builder","kong_kontrollers","krypto"];

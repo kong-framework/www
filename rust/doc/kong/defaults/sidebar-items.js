@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":[["LOG_FILE","Kong log file"],["WORKING_DIRECTORY","Kong working directory"]]};
+window.SIDEBAR_ITEMS = {"constant":["LOG_FILE","WORKING_DIRECTORY"]};

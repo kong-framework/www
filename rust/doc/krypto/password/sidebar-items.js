@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":[["hash","Hash a cleartext password using the scrypt hash function"],["verify","Check if a scrypt hash matches the password cleartext"]]};
+window.SIDEBAR_ITEMS = {"fn":["hash","verify"]};

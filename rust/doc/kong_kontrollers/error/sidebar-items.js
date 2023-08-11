@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":[["KontrollerError","🚨 Kontroller Errors"]]};
+window.SIDEBAR_ITEMS = {"enum":["KontrollerError"]};
